@@ -1,0 +1,50 @@
+:root {
+    --bg-gradient-start: #f0f4f8;
+    --bg-gradient-end: #e6edf4;
+    --app-bg-overlay: rgba(255, 255, 255, 0.68);
+    --card-bg: #ffffff;
+    --card-shadow: rgba(0, 0, 0, 0.03);
+    --card-border: #eaf0f5;
+    
+    --text-primary: #1a2c3e;
+    --text-secondary: #5f7f6e;
+    --text-muted: #6c8b7a;
+    --text-dark-green: #1f3d31;
+    --text-light-green: #88a396;
+    --text-placeholder: #99b9a8;
+    --text-footer: #98b2a2;
+    
+    --accent-gradient-start: #1f4e3c;
+    --accent-gradient-end: #2b7a4b;
+    --accent-primary: #2b7a4b;
+    --accent-hover: #1f5e3e;
+    --accent-light: #428b6b;
+    --accent-focus: #3f9e72;
+    --accent-focus-shadow: rgba(55, 155, 100, 0.2);
+    
+    --protein-color: #3d9e6d;
+    --fat-color: #edb15d;
+    --carbs-color: #6d8fbb;
+    
+    --goal-item-bg: #f9fdfb;
+    --totals-bar-bg: #eef3efc9;
+    --total-item-bg: #ffffff;
+    --ring-bg-stroke: #e2ece6;
+    --border-light: #dde6e0;
+    --border-light-soft: #eef3ef;
+    --border-item: #f0f5f2;
+    
+    --reset-btn-bg: rgba(255, 255, 245, 0.8);
+    --reset-btn-hover: #ffffff;
+    --edit-link-color: #428b6b;
+    --delete-icon-color: #b9cfc2;
+    --delete-icon-hover: #db6b5a;
+    
+    --input-bg: #fefefc;
+    --input-border: #dde6e0;
+    
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 8px 18px rgba(0, 0, 0, 0.03);
+    --shadow-lg: 0 20px 35px -12px rgba(0, 0, 0, 0.12);
+    --ring-stroke-width: 8;
+}
