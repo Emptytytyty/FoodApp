@@ -5,6 +5,7 @@
     --card-bg: #ffffff;
     --card-shadow: rgba(0, 0, 0, 0.03);
     --card-border: #eaf0f5;
+    --card-border-radius: 48px;
     
     --text-primary: #1a2c3e;
     --text-secondary: #5f7f6e;

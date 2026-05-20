@@ -1,2 +1,9 @@
 @import './assets/styles/reset.css';
 @import './assets/styles/variables.css';
+
+body {
+  background: linear-gradient(var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  font-size: 16px;
+  font-family: sans-serif;
+  color: var(--text-primary);
+}
