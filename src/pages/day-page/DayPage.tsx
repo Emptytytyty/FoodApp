@@ -1,13 +1,18 @@
+import { useParams } from "react-router";
 import { FoodList } from "../../components/food-list/FoodList";
 import { Totals } from "../../components/totals/Totals";
 import { calcNutrients } from "../../utils/helpers/calcNutrients";
-import type { Product } from "../../utils/types";
 import style from "./dayPage.module.css";
+import { useSelector } from "react-redux";
+import { productsSelector } from "../../services/nutrients/NutrientsSlice";
+import type { RootState } from "../../services/store";
 
 export const DayPage = () => {
-  const products = [] as Product[];
+  const day = useParams().id!;
+  const products = useSelector((state: RootState) =>
+    productsSelector(state, day),
+  ) || [];
   const nutrients = calcNutrients(products);
-  const setProducts = () => {}
 
   return (
     <main className={style["day"]}>
@@ -19,7 +24,7 @@ export const DayPage = () => {
         proteins={nutrients.proteins}
         proteinsGoal={160}
       />
-      <FoodList products={products} setProducts={setProducts}></FoodList>
+      <FoodList products={products}></FoodList>
     </main>
   );
 };

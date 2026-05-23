@@ -2,13 +2,17 @@ import { useState, type ChangeEvent } from "react";
 import style from "./foodList.module.css";
 import { calcCalories } from "../../utils/helpers/calcCalories";
 import type { Product } from "../../utils/types";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../services/store";
+import { addProduct, deleteProduct } from "../../services/nutrients/NutrientsSlice";
+import { useParams } from "react-router";
 
 interface FoodListProps {
   products: Product[];
-  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }
 
-export const FoodList = ({ products, setProducts }: FoodListProps) => {
+export const FoodList = ({ products }: FoodListProps) => {
+  const dispatch = useDispatch<AppDispatch>();
   const initialNewFood = {
     carbs: 0,
     fats: 0,
@@ -17,13 +21,11 @@ export const FoodList = ({ products, setProducts }: FoodListProps) => {
     name: "",
   };
   const [newFood, setNewFood] = useState<Omit<Product, "id">>(initialNewFood);
+  const day = useParams().id!;
 
   const handleAddNewFood = () => {
     const id = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
-    setProducts((prev) => [
-      ...prev,
-      { ...newFood, id, weight: newFood.weight || 100 },
-    ]);
+    dispatch(addProduct({day, product: { ...newFood, id, weight: newFood.weight || 100 }}))
     setNewFood(initialNewFood);
   };
 
@@ -34,10 +36,6 @@ export const FoodList = ({ products, setProducts }: FoodListProps) => {
       ...prev,
       [name]: name !== 'name' ? +value : value,
     }));
-  };
-
-  const onDeleteProduct = (id: string) => {
-    setProducts((prev) => prev.filter((item) => item.id !== id));
   };
 
   return (
@@ -134,7 +132,7 @@ export const FoodList = ({ products, setProducts }: FoodListProps) => {
             </ul>
             <button
               className={style["product__delete"]}
-              onClick={() => onDeleteProduct(item.id)}
+              onClick={() => dispatch(deleteProduct({day, productId: item.id}))}
             >
               🗑
             </button>
