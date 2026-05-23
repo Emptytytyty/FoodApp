@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { calcCalories } from "../../utils/helpers/calcCalories";
 import style from "./totals.module.css";
 
@@ -22,6 +23,7 @@ export const Totals = ({
     <section className={style['totals']}>
       <header className={style['totals__header']}>
         <h2 className={style['header__heading']}>Итоги БЖУ</h2>
+        <Link className={style['header__link']} to={'/'}>На главную</Link>
       </header>
       <ul className={style['goals']}>
         <li>

@@ -4,6 +4,11 @@
   padding: 24px 16px;
 }
 
+.totals__header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .header__heading {
   text-transform: uppercase;
   font-size: 20px;
@@ -12,7 +17,18 @@
   margin-bottom: 12px;
 }
 
+.header__link {
+  font-size: 20px;
+  color: var(--accent-primary);
+  transition: all .3s;
+}
+
+.header__link:hover {
+  color: var(--accent-focus);
+}
+
 .goals {
   display: flex;
+  justify-content: space-between;
   gap: 20px;
 }

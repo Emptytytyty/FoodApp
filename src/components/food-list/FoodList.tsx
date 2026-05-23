@@ -1,15 +1,7 @@
 import { useState, type ChangeEvent } from "react";
 import style from "./foodList.module.css";
 import { calcCalories } from "../../utils/helpers/calcCalories";
-
-export type Product = {
-  id: string;
-  name: string;
-  proteins: number;
-  fats: number;
-  carbs: number;
-  weight: number;
-};
+import type { Product } from "../../utils/types";
 
 interface FoodListProps {
   products: Product[];
