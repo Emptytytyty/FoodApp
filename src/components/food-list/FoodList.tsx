@@ -1,7 +1,8 @@
 import { useState, type ChangeEvent } from "react";
 import style from "./foodList.module.css";
+import { calcCalories } from "../../utils/helpers/calcCalories";
 
-type Product = {
+export type Product = {
   id: string;
   name: string;
   proteins: number;
@@ -12,11 +13,10 @@ type Product = {
 
 interface FoodListProps {
   products: Product[];
+  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }
 
-export const FoodList = ({ products }: FoodListProps) => {
-  const [list, setList] = useState<Product[]>(products);
-
+export const FoodList = ({ products, setProducts }: FoodListProps) => {
   const initialNewFood = {
     carbs: 0,
     fats: 0,
@@ -28,7 +28,7 @@ export const FoodList = ({ products }: FoodListProps) => {
 
   const handleAddNewFood = () => {
     const id = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
-    setList((prev) => [
+    setProducts((prev) => [
       ...prev,
       { ...newFood, id, weight: newFood.weight || 100 },
     ]);
@@ -38,11 +38,14 @@ export const FoodList = ({ products }: FoodListProps) => {
   const handleNewFoodInput = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
-    setNewFood((prev) => ({ ...prev, [name]: value }));
+    setNewFood((prev) => ({
+      ...prev,
+      [name]: name !== 'name' ? +value : value,
+    }));
   };
 
   const onDeleteProduct = (id: string) => {
-    setList((prev) => prev.filter((item) => item.id !== id));
+    setProducts((prev) => prev.filter((item) => item.id !== id));
   };
 
   return (
@@ -127,7 +130,7 @@ export const FoodList = ({ products }: FoodListProps) => {
         </button>
       </form>
       <ul className={style["products"]}>
-        {list.map((item) => (
+        {products.map((item) => (
           <li key={item.id} className={style["product"]}>
             <strong className={style["product__name"]}>{item.name}</strong>
             <ul className={style["product__nutrients"]}>
@@ -135,7 +138,7 @@ export const FoodList = ({ products }: FoodListProps) => {
               <li>🧈 {(item.fats * item.weight) / 100}</li>
               <li>🍫 {(item.carbs * item.weight) / 100}</li>
               <li>Вес - {item.weight}г.</li>
-              <li>Ккал - {(item.proteins*4 + item.fats*9 + item.carbs*4) * item.weight/100}</li>
+              <li>Ккал - {(calcCalories(item) * item.weight) / 100}</li>
             </ul>
             <button
               className={style["product__delete"]}

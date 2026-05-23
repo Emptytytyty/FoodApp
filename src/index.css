@@ -7,3 +7,12 @@ body {
   font-family: sans-serif;
   color: var(--text-primary);
 }
+
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 450px;
+  margin-inline: auto;
+  min-height: 100vh;
+}
