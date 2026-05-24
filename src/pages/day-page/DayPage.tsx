@@ -15,6 +15,7 @@ export const DayPage = () => {
   ) || [];
   const nutrients = calcNutrients(products);
   const dispatch = useDispatch<AppDispatch>();
+  const [date, month, year] = day.split('-');
 
   useEffect(() => {
     dispatch(addDay(day));
@@ -29,6 +30,7 @@ export const DayPage = () => {
         fatsGoal={80}
         proteins={nutrients.proteins}
         proteinsGoal={160}
+        date={new Date(+year, +month, +date)}
       />
       <FoodList products={products}></FoodList>
     </main>

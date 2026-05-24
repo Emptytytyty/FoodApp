@@ -1,6 +1,8 @@
 import { Link } from "react-router";
 import { calcCalories } from "../../utils/helpers/calcCalories";
 import style from "./totals.module.css";
+import { format } from "date-fns";
+import { ru } from "date-fns/locale";
 
 interface TotalsProps {
   proteinsGoal: number;
@@ -9,6 +11,7 @@ interface TotalsProps {
   proteins: number;
   carbs: number;
   fats: number;
+  date: Date;
 }
 
 export const Totals = ({
@@ -18,11 +21,13 @@ export const Totals = ({
   fatsGoal,
   proteins,
   proteinsGoal,
+  date
 }: TotalsProps) => {
   return (
     <section className={style['totals']}>
       <header className={style['totals__header']}>
         <h2 className={style['header__heading']}>Итоги БЖУ</h2>
+        <b className={style['header__date']}>{format(date, "dd LLLL yyyy", { locale: ru })}</b>
         <Link className={style['header__link']} to={'/'}>На главную</Link>
       </header>
       <ul className={style['goals']}>
