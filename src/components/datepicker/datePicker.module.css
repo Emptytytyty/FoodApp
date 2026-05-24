@@ -1,0 +1,75 @@
+.date-picker {
+  padding: 20px;
+  height: 100%;
+}
+
+.date-picker__header {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.date-picker__navigation {}
+
+.navigation__days-of-week {
+  margin-bottom: 10px;
+  color: var(--accent-primary);
+}
+
+.date-picker__navigation ol {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.navigation__item {
+  list-style: none;
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  padding: 4px;
+  background-color: var(--input-bg);
+  transition: all .3s;
+}
+
+.navigation__item:not(.navigation__item--headers) {
+  box-shadow: var(--shadow-sm);
+}
+
+.navigation__item:not(.navigation__item--headers):hover {
+  scale: 1.1;
+}
+
+.navigation__item--muted {
+  background-color: var(--card-border);
+}
+
+.navigation__item--muted .day__number {
+  color: var(--text-muted);
+}
+
+.navigation__item--muted .day__results {
+  color: var(--text-muted);
+}
+
+.navigation__item--today {
+  border: 2px solid var(--accent-primary);
+}
+
+.navigation__item--headers {
+  border-radius: 0;
+}
+
+.navigation__day {
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+.day__number {
+  color: var(--accent-primary)
+}
+
+.day__results {
+  font-size: 10px;
+}
