@@ -3,9 +3,10 @@ import { FoodList } from "../../components/food-list/FoodList";
 import { Totals } from "../../components/totals/Totals";
 import { calcNutrients } from "../../utils/helpers/calcNutrients";
 import style from "./dayPage.module.css";
-import { useSelector } from "react-redux";
-import { productsSelector } from "../../services/nutrients/NutrientsSlice";
-import type { RootState } from "../../services/store";
+import { useDispatch, useSelector } from "react-redux";
+import { addDay, productsSelector } from "../../services/nutrients/NutrientsSlice";
+import type { AppDispatch, RootState } from "../../services/store";
+import { useEffect } from "react";
 
 export const DayPage = () => {
   const day = useParams().id!;
@@ -13,6 +14,11 @@ export const DayPage = () => {
     productsSelector(state, day),
   ) || [];
   const nutrients = calcNutrients(products);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(addDay(day));
+  }, [])
 
   return (
     <main className={style["day"]}>

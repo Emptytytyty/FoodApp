@@ -2,18 +2,32 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { Product } from "../../utils/types";
 
+export const saveProductsAPI = (state: NutrientsState) =>
+  localStorage.setItem("products", JSON.stringify(state.nutrientsByDays));
+
+export const loadProductsAPI = () => {
+  const productsJSON = localStorage.getItem("products");
+  return productsJSON ? JSON.parse(productsJSON) : null;
+};
+
 export interface NutrientsState {
   nutrientsByDays: { day: string; products: Product[] }[];
 }
 
 const initialState: NutrientsState = {
-  nutrientsByDays: [ {day: "1", products: [{id: '1', carbs: 73, fats: 1.3, proteins: 12, name: 'макароны', weight: 200}, {id: '2', carbs: 0, fats: 2, proteins: 21, weight: 300, name: 'курица'}] }],
+  nutrientsByDays: loadProductsAPI() || [],
 };
 
 export const NutrientsSlice = createSlice({
   name: "nutrients",
   initialState,
   reducers: {
+    loadProducts: (state) => {
+      const products = loadProductsAPI();
+      if (products) state.nutrientsByDays = products;
+    },
+    setProducts: (state, action: PayloadAction<NutrientsState>) =>
+      (state = action.payload),
     addProduct: (
       state,
       action: PayloadAction<{ day: string; product: Product }>,
@@ -21,6 +35,7 @@ export const NutrientsSlice = createSlice({
       const { day, product } = action.payload;
       const dayToEdit = state.nutrientsByDays.find((item) => item.day === day);
       if (dayToEdit) dayToEdit.products.push(product);
+      saveProductsAPI(state);
     },
     deleteProduct: (
       state,
@@ -34,6 +49,16 @@ export const NutrientsSlice = createSlice({
         );
         dayToEdit.products = newProducts;
       }
+      saveProductsAPI(state);
+    },
+    addDay: (state, action: PayloadAction<string>) => {
+      if (!state.nutrientsByDays.find((item) => item.day === action.payload)) {
+        state.nutrientsByDays = [
+          ...state.nutrientsByDays,
+          { day: action.payload, products: [] },
+        ];
+        saveProductsAPI(state);
+      }
     },
   },
   selectors: {
@@ -42,7 +67,8 @@ export const NutrientsSlice = createSlice({
   },
 });
 
-export const { addProduct, deleteProduct } = NutrientsSlice.actions;
+export const { addProduct, deleteProduct, addDay, setProducts, loadProducts } =
+  NutrientsSlice.actions;
 export const { productsSelector } = NutrientsSlice.selectors;
 
 export const nutrientsReducer = NutrientsSlice.reducer;
