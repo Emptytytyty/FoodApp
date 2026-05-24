@@ -2,7 +2,7 @@ import { format, isSameDay, isSameMonth } from "date-fns";
 import { useCalendar } from "../../utils/hooks/useCalendar";
 import { ru } from "date-fns/locale";
 import { Link } from "react-router";
-import { productsSelector } from "../../services/nutrients/NutrientsSlice";
+import { productsByIntervalSelector } from "../../services/nutrients/NutrientsSlice";
 import { useSelector } from "../../services/store";
 import { calcNutrients } from "../../utils/helpers/calcNutrients";
 import { calcCalories } from "../../utils/helpers/calcCalories";
@@ -10,6 +10,9 @@ import style from "./datePicker.module.css";
 
 export const DatePicker = () => {
   const { currentMonth, nextMonth, prevMonth, days } = useCalendar();
+  const productsByInterval = useSelector((state) =>
+    productsByIntervalSelector(state, days),
+  );
 
   return (
     <article className={`${style["date-picker"]} card`}>
@@ -34,15 +37,15 @@ export const DatePicker = () => {
             const isCurrentMonth = isSameMonth(currentMonth, day);
             const isCurrentDay = isSameDay(new Date(), day);
             const formatedDay = format(day, "dd-MM-yyyy", { locale: ru });
-            const products = useSelector((state) =>
-              productsSelector(state, formatedDay),
-            );
+            const products = productsByInterval.find(
+              (item) => item.day === formatedDay,
+            )?.products;
             const { proteins, fats, carbs } = calcNutrients(products);
             const calories = calcCalories({ proteins, fats, carbs });
 
             return (
               <li
-                className={`${style["navigation__item"]} ${isCurrentMonth ? "" : style["navigation__item--muted"]} ${isCurrentDay ? style["navigation__item--today"] : ''}`}
+                className={`${style["navigation__item"]} ${isCurrentMonth ? "" : style["navigation__item--muted"]} ${isCurrentDay ? style["navigation__item--today"] : ""}`}
                 key={formatedDay}
               >
                 <Link

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { Product } from "../../utils/types";
+import { format } from "date-fns";
 
 export const saveProductsAPI = (state: NutrientsState) =>
   localStorage.setItem("products", JSON.stringify(state.nutrientsByDays));
@@ -26,8 +27,10 @@ export const NutrientsSlice = createSlice({
       const products = loadProductsAPI();
       if (products) state.nutrientsByDays = products;
     },
-    setProducts: (state, action: PayloadAction<NutrientsState>) =>
-      (state = action.payload),
+    setProducts: (state, action: PayloadAction<NutrientsState>) => {
+      state = action.payload;
+      return state;
+    },
     addProduct: (
       state,
       action: PayloadAction<{ day: string; product: Product }>,
@@ -64,11 +67,15 @@ export const NutrientsSlice = createSlice({
   selectors: {
     productsSelector: (state, day: string) =>
       state.nutrientsByDays.find((item) => item.day === day)?.products,
+    productsByIntervalSelector: (state, days: Date[]) => {
+      const formatedDays = days.map((day) => format(day, "dd-MM-yyyy"));
+      return state.nutrientsByDays.filter((item) => formatedDays.includes(item.day));
+    },
   },
 });
 
 export const { addProduct, deleteProduct, addDay, setProducts, loadProducts } =
   NutrientsSlice.actions;
-export const { productsSelector } = NutrientsSlice.selectors;
+export const { productsSelector, productsByIntervalSelector } = NutrientsSlice.selectors;
 
 export const nutrientsReducer = NutrientsSlice.reducer;
