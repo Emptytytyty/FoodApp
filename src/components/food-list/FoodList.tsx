@@ -4,8 +4,12 @@ import { calcCalories } from "../../utils/helpers/calcCalories";
 import type { Product } from "../../utils/types";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../services/store";
-import { addProduct, deleteProduct } from "../../services/nutrients/NutrientsSlice";
+import {
+  addProduct,
+  deleteProduct,
+} from "../../services/nutrients/NutrientsSlice";
 import { useParams } from "react-router";
+import { calcNutrients } from "../../utils/helpers/calcNutrients";
 
 interface FoodListProps {
   products: Product[];
@@ -25,7 +29,12 @@ export const FoodList = ({ products }: FoodListProps) => {
 
   const handleAddNewFood = () => {
     const id = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
-    dispatch(addProduct({day, product: { ...newFood, id, weight: newFood.weight || 100 }}))
+    dispatch(
+      addProduct({
+        day,
+        product: { ...newFood, id, weight: newFood.weight || 100 },
+      }),
+    );
     setNewFood(initialNewFood);
   };
 
@@ -34,7 +43,7 @@ export const FoodList = ({ products }: FoodListProps) => {
     const value = e.target.value;
     setNewFood((prev) => ({
       ...prev,
-      [name]: name !== 'name' ? +value : value,
+      [name]: name !== "name" ? +value : value,
     }));
   };
 
@@ -120,24 +129,29 @@ export const FoodList = ({ products }: FoodListProps) => {
         </button>
       </form>
       <ul className={style["products"]}>
-        {products.map((item) => (
-          <li key={item.id} className={style["product"]}>
-            <strong className={style["product__name"]}>{item.name}</strong>
-            <ul className={style["product__nutrients"]}>
-              <li>🥩 {(item.proteins * item.weight) / 100}</li>
-              <li>🧈 {(item.fats * item.weight) / 100}</li>
-              <li>🍫 {(item.carbs * item.weight) / 100}</li>
-              <li>Вес - {item.weight}г.</li>
-              <li>Ккал - {(calcCalories(item) * item.weight) / 100}</li>
-            </ul>
-            <button
-              className={style["product__delete"]}
-              onClick={() => dispatch(deleteProduct({day, productId: item.id}))}
-            >
-              🗑
-            </button>
-          </li>
-        ))}
+        {products.map((item) => {
+          const nutrients = calcNutrients([item]);
+          return (
+            <li key={item.id} className={style["product"]}>
+              <strong className={style["product__name"]}>{item.name}</strong>
+              <ul className={style["product__nutrients"]}>
+                <li>🥩 {nutrients.proteins}</li>
+                <li>🧈 {nutrients.fats}</li>
+                <li>🍫 {nutrients.carbs}</li>
+                <li>Вес - {item.weight}г.</li>
+                <li>Ккал - {calcCalories(nutrients)}</li>
+              </ul>
+              <button
+                className={style["product__delete"]}
+                onClick={() =>
+                  dispatch(deleteProduct({ day, productId: item.id }))
+                }
+              >
+                🗑
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </section>
   );

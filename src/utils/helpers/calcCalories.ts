@@ -7,5 +7,5 @@ export const calcCalories = (
     carbs
   }: Nutrients
 ): number => {
-  return proteins * 4 + fats * 9 + carbs * 4;
+  return +(proteins * 4 + fats * 9 + carbs * 4).toFixed(0);
 };
