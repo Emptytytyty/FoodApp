@@ -2,7 +2,6 @@ import style from "./goalsForm.module.css";
 import { useDispatch, useSelector } from "../../services/store";
 import { useState, type ChangeEvent } from "react";
 import { setGoals } from "../../services/nutrients/NutrientsSlice";
-import { calcCalories } from "../../utils/helpers/calcCalories";
 
 export const GoalsForm = () => {
   const dispatch = useDispatch();

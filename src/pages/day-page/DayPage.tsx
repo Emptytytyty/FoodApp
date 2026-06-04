@@ -4,7 +4,7 @@ import { Totals } from "../../components/totals/Totals";
 import { calcNutrients } from "../../utils/helpers/calcNutrients";
 import style from "./dayPage.module.css";
 import { addDay, productsSelector } from "../../services/nutrients/NutrientsSlice";
-import { useDispatch, useSelector, type AppDispatch, type RootState } from "../../services/store";
+import { useDispatch, useSelector } from "../../services/store";
 import { useEffect } from "react";
 
 export const DayPage = () => {

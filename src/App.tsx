@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "./services/store";
 import { loadProducts } from "./services/nutrients/NutrientsSlice";
-import { DatePicker } from "./components/datepicker/DatePicker";
+import { Home } from "./pages/home/Home";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -18,8 +18,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={
-              <DatePicker/>
+            element={<Home/>
             }
           />
           <Route path="/day/:id" element={<DayPage />} />
