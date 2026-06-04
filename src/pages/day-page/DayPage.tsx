@@ -15,7 +15,6 @@ export const DayPage = () => {
   const nutrients = calcNutrients(products);
   const dispatch = useDispatch();
   const [date, month, year] = day.split('-');
-  console.log(month)
 
   useEffect(() => {
     dispatch(addDay(day));
