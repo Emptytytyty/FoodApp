@@ -11,4 +11,8 @@ export type Nutrients = {
   proteins: number;
   carbs: number;
   fats: number;
-}
+};
+
+export type ProductsState = { day: string; products: Product[] }[];
+
+export type GoalsState = Nutrients & { calories: number };

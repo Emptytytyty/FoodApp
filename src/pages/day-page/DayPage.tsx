@@ -3,19 +3,19 @@ import { FoodList } from "../../components/food-list/FoodList";
 import { Totals } from "../../components/totals/Totals";
 import { calcNutrients } from "../../utils/helpers/calcNutrients";
 import style from "./dayPage.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import { addDay, productsSelector } from "../../services/nutrients/NutrientsSlice";
-import type { AppDispatch, RootState } from "../../services/store";
+import { useDispatch, useSelector, type AppDispatch, type RootState } from "../../services/store";
 import { useEffect } from "react";
 
 export const DayPage = () => {
   const day = useParams().id!;
-  const products = useSelector((state: RootState) =>
+  const products = useSelector(state =>
     productsSelector(state, day),
   ) || [];
   const nutrients = calcNutrients(products);
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const [date, month, year] = day.split('-');
+  console.log(month)
 
   useEffect(() => {
     dispatch(addDay(day));
@@ -25,12 +25,9 @@ export const DayPage = () => {
     <main className={style["day"]}>
       <Totals
         carbs={nutrients.carbs}
-        carbsGoal={400}
         fats={nutrients.fats}
-        fatsGoal={80}
         proteins={nutrients.proteins}
-        proteinsGoal={160}
-        date={new Date(+year, +month, +date)}
+        date={new Date(+year, +month - 1, +date)}
       />
       <FoodList products={products}></FoodList>
     </main>
