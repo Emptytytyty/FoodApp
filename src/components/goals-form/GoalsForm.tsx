@@ -13,7 +13,7 @@ export const GoalsForm = () => {
   };
 
   return (
-    <form className={style["goals-form"]}>
+    <form className={`${style["goals-form"]} card`}>
       <h3 className={style["form-heading"]}>Цели</h3>
       <fieldset className={style['fieldset']}>
         <label className={style["input-label"]}>

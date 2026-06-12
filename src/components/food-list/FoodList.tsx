@@ -48,7 +48,7 @@ export const FoodList = ({ products }: FoodListProps) => {
   };
 
   return (
-    <section className={style["food-list"]}>
+    <section className={`${style["food-list"]} card`}>
       <header className={style["food-list__header"]}>
         <h2 className={style["header__heading"]}>Продукты</h2>
       </header>
@@ -147,7 +147,7 @@ export const FoodList = ({ products }: FoodListProps) => {
                   dispatch(deleteProduct({ day, productId: item.id }))
                 }
               >
-                🗑
+                x
               </button>
             </li>
           );

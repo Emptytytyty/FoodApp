@@ -16,12 +16,12 @@ export const Totals = ({ carbs, fats, proteins, date }: TotalsProps) => {
   const goals = useSelector((state) => state.nutrients.goals);
 
   return (
-    <section className={style["totals"]}>
+    <section className={`${style["totals"]} card`}>
+        <time className={style["date"]}>
+          {format(date, "dd LLLL yyyy", { locale: ru })}
+        </time>
       <header className={style["totals__header"]}>
         <h2 className={style["header__heading"]}>Итоги БЖУ</h2>
-        <b className={style["header__date"]}>
-          {format(date, "dd LLLL yyyy", { locale: ru })}
-        </b>
         <Link className={style["header__link"]} to={"/"}>
           На главную
         </Link>
