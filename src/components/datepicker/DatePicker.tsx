@@ -7,12 +7,27 @@ import { useSelector } from "../../services/store";
 import { calcNutrients } from "../../utils/helpers/calcNutrients";
 import { calcCalories } from "../../utils/helpers/calcCalories";
 import style from "./datePicker.module.css";
+import { useEffect } from "react";
 
 export const DatePicker = () => {
   const { currentMonth, nextMonth, prevMonth, days } = useCalendar();
   const productsByInterval = useSelector((state) =>
     productsByIntervalSelector(state, days),
   );
+
+  const handleChangeMonthKeyboard = (e: KeyboardEvent) => {
+    console.log(e.key)
+    if (e.key === "ArrowLeft") prevMonth();
+    if (e.key === "ArrowRight") nextMonth();
+  };
+
+  useEffect(() => {
+    document.body.addEventListener("keyup", handleChangeMonthKeyboard);
+
+    return () => {
+      document.body.removeEventListener("keyup", handleChangeMonthKeyboard);
+    };
+  }, [currentMonth]);
 
   return (
     <article className={`${style["date-picker"]} card`}>
