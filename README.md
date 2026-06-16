@@ -36,13 +36,17 @@
     git clone https://github.com/Emptytytyty/FoodApp.git
 
 2. **Перейдите в папку проекта**
-cd FoodApp
+    ```bash
+    cd FoodApp
 
 3. **Установите зависимости**
-npm i
+    ```bash
+    npm i
 
 4. **Запустите сервер разработки**
-npm run dev
+    ```bash
+    npm run dev
 
 5. **Сборка для продакшена (опционально)**
-npm run build
+    ```bash
+    npm run build
