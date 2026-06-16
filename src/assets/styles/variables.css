@@ -2,9 +2,11 @@
     --bg-gradient-start: #f0f4f8;
     --bg-gradient-end: #e6edf4;
     --app-bg-overlay: rgba(255, 255, 255, 0.68);
+    --app-border: rgba(156, 180, 200, 0.4);
     --card-bg: #ffffff;
     --card-shadow: rgba(0, 0, 0, 0.03);
     --card-border: #eaf0f5;
+    --card-border-radius: 48px;
     
     --text-primary: #1a2c3e;
     --text-secondary: #5f7f6e;
@@ -46,5 +48,4 @@
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 8px 18px rgba(0, 0, 0, 0.03);
     --shadow-lg: 0 20px 35px -12px rgba(0, 0, 0, 0.12);
-    --ring-stroke-width: 8;
 }

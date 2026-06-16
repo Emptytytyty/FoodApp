@@ -1,0 +1,60 @@
+.goals-form {
+  display: grid;
+  grid-template:  repeat(3, min-content) / repeat(3, 1fr);
+  padding: 16px;
+  margin-bottom: 10px;
+  column-gap: 8px;
+  border: 1px solid var(--accent-light);
+  border-radius: 32px;
+}
+
+.form-heading {
+  font-size: 18px;
+  color: var(--accent-primary);
+  margin-bottom: 8px;
+  grid-column: 1 / 3;
+}
+
+.fieldset {
+  display: flex;
+  gap: 10px;
+  grid-row: 2 / 3;
+  grid-column: 1 / 4;
+}
+
+.input-label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-input {
+  padding: 4px 8px;
+  background-color: var(--input-bg);
+  border: 2px solid var(--input-border);
+  border-radius: 12px;
+  width: 100%;
+}
+
+.form-input::placeholder {
+  color: var(--text-placeholder);
+  font-size: 14px;
+}
+
+.form-button {
+  display: block;
+  width: 100%;
+  text-transform: capitalize;
+  background-color: var(--accent-primary);
+  padding: 12px 18px;
+  color: white;
+  font-weight: 700;
+  border-radius: 40px;
+  margin-block: 12px;
+  transition: .2s all;
+  grid-column: 1 / 4;
+}
+
+.form-button:hover {
+  background-color: var(--accent-hover);
+}
