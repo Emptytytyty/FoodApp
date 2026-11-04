@@ -1,6 +1,6 @@
 import style from "./goalsForm.module.css";
 import { useDispatch, useSelector } from "../../services/store";
-import { useState, type ChangeEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { setGoals } from "../../services/nutrients/NutrientsSlice";
 
 export const GoalsForm = () => {
@@ -12,10 +12,23 @@ export const GoalsForm = () => {
     setGoalsValues({ ...goalsValues, [e.target.name]: +e.target.value });
   };
 
+  const formRef = useRef<HTMLFormElement>(null);
+  const preventPropagation = (e: Event) => e.stopPropagation();
+
+  useEffect(() => {
+    if (formRef.current)
+      formRef.current.addEventListener("keyup", preventPropagation);
+
+    return () => {
+      if (formRef.current)
+        formRef.current.removeEventListener("keyup", preventPropagation);
+    };
+  }, [formRef.current]);
+
   return (
-    <form className={`${style["goals-form"]} card`}>
+    <form className={`${style["goals-form"]} card`} ref={formRef}>
       <h3 className={style["form-heading"]}>Цели</h3>
-      <fieldset className={style['fieldset']}>
+      <fieldset className={style["fieldset"]}>
         <label className={style["input-label"]}>
           <div>Белки (г)</div>
           <input
